@@ -69,6 +69,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -104,11 +105,13 @@ import com.heyanle.easybangumi4.compose.common.OkImage
 import com.heyanle.easybangumi4.compose.common.TabIndicator
 import com.heyanle.easybangumi4.navigationDlna
 import com.heyanle.easybangumi4.navigationSearch
+import com.heyanle.easybangumi4.preferences.SettingPreferences
 import com.heyanle.easybangumi4.utils.isCurPadeMode
 import com.heyanle.easybangumi4.utils.loge
 import com.heyanle.easybangumi4.utils.openUrl
 import com.heyanle.easybangumi4.utils.stringRes
 import com.heyanle.easybangumi4.utils.toast
+import com.heyanle.injekt.core.Injekt
 import kotlinx.coroutines.launch
 import loli.ball.easyplayer2.ControlViewModel
 import loli.ball.easyplayer2.ControlViewModelFactory
@@ -212,6 +215,26 @@ fun CartoonPlay(
     LaunchedEffect(key1 = controlVM.curSpeed) {
         controlVM.curSpeed.loge("CartoonPlay")
     }
+
+
+    LaunchedEffect(key1 = CartoonPlayingManager.state) {
+        controlVM.title =
+            CartoonPlayingManager.state.cartoon()?.title + " - " + CartoonPlayingManager.state.playLine()?.episode?.getOrElse(
+                CartoonPlayingManager.state.playLineIndex() ?: 0
+            ) { "" }
+    }
+
+    val settingPreferences: SettingPreferences by Injekt.injectLazy()
+    val orMode = settingPreferences.playerOrientationMode.flow()
+        .collectAsState(initial = SettingPreferences.PlayerOrientationMode.Auto)
+    LaunchedEffect(key1 = orMode) {
+        controlVM.orientationEnableMode = when (orMode.value) {
+            SettingPreferences.PlayerOrientationMode.Auto -> ControlViewModel.OrientationEnableMode.AUTO
+            SettingPreferences.PlayerOrientationMode.Enable -> ControlViewModel.OrientationEnableMode.ENABLE
+            SettingPreferences.PlayerOrientationMode.Disable -> ControlViewModel.OrientationEnableMode.DISABLE
+        }
+    }
+
     val lazyGridState = rememberLazyGridState()
     EasyPlayerScaffoldBase(
         modifier = Modifier

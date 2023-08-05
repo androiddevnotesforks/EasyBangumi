@@ -28,6 +28,10 @@
     <string name="in_private_msg">暂停记录观看历史</string>
 
     <string name="appearance_setting">外观设置</string>
+    <string name="player_setting">播放设置</string>
+    
+    <string name="use_external_player">使用外置播放器</string>
+    <string name="player_orientation_mode">跟随传感器切换全屏</string>
 
     <string name="theme">主题</string>
 
@@ -63,6 +67,8 @@
 
     <string name="no_tag">你还没有标签</string>
     <string name="click_to_manage_tag">跳转到标签管理页？</string>
+
+    <string name="source_config">番剧配置</string>
 
     <string name="source_manage">番源管理</string>
     <string name="choose_source">选择番源</string>
@@ -106,6 +112,9 @@
 
     <string name="no_play_line">没有播放线路</string>
 
+    <string name="migrating">数据升级中</string>
+
+    <string name="source_loading">番剧源加载中</string>
     <string name="no_source">没有番剧源</string>
     <string name="click_to_get">点击获取</string>
 

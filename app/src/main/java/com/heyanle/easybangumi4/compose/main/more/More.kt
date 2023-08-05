@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.HistoryToggleOff
+import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.outlined.Report
 import androidx.compose.material3.HorizontalDivider
@@ -26,12 +27,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.heyanle.easybangumi4.ABOUT
-import com.heyanle.easybangumi4.APPEARANCE_SETTING
 import com.heyanle.easybangumi4.LocalNavController
 import com.heyanle.easybangumi4.R
 import com.heyanle.easybangumi4.SOURCE_MANAGER
 import com.heyanle.easybangumi4.compose.common.BooleanPreferenceItem
 import com.heyanle.easybangumi4.compose.common.OkImage
+import com.heyanle.easybangumi4.compose.setting.SettingPage
+import com.heyanle.easybangumi4.navigationSetting
 import com.heyanle.easybangumi4.preferences.SettingMMKVPreferences
 import com.heyanle.easybangumi4.preferences.SettingPreferences
 import com.heyanle.injekt.core.Injekt
@@ -89,13 +91,26 @@ fun More() {
 
         ListItem(
             modifier = Modifier.clickable {
-                nav.navigate(APPEARANCE_SETTING)
+                nav.navigationSetting(SettingPage.Appearance)
             },
             headlineContent = { Text(text = stringResource(id = com.heyanle.easy_i18n.R.string.appearance_setting)) },
             leadingContent = {
                 Icon(
                     Icons.Filled.ColorLens,
                     contentDescription = stringResource(id = com.heyanle.easy_i18n.R.string.appearance_setting)
+                )
+            }
+        )
+
+        ListItem(
+            modifier = Modifier.clickable {
+                nav.navigationSetting(SettingPage.Player)
+            },
+            headlineContent = { Text(text = stringResource(id = com.heyanle.easy_i18n.R.string.player_setting)) },
+            leadingContent = {
+                Icon(
+                    Icons.Filled.PlayCircle,
+                    contentDescription = stringResource(id = com.heyanle.easy_i18n.R.string.player_setting)
                 )
             }
         )
